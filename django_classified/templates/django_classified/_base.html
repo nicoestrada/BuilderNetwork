@@ -41,7 +41,7 @@
       <nav>
         <ul class="nav nav-pills pull-right">
           <li role="presentation" class="active"><a
-                  href="{% url 'django_classified:item-new' %}">{% trans "Add new" %}</a>
+                  href="{% url 'django_classified:item-new' %}">{% trans "Create a Listing" %}</a>
           </li>
           <li role="presentation"><a href="{% url 'django_classified:index' %}">{% trans "Home" %}</a></li>
           <li role="presentation"><a href="{% url 'django_classified:search' %}">{% trans "Search" %}</a></li>
@@ -106,8 +106,7 @@
     <footer class="footer">
       <span class="pull-left">{{ DCF.SITE_NAME }}</span>
       {% if DCF.DISPLAY_CREDITS %}
-        <span class="pull-right">{% trans "Powered by" %} <a href="https://github.com/inoks/django-classified"
-                                                             title="Django Classified Ads">Django Classified Ads (v{{ DCF.VERSION }})</a></span>
+        <span class="pull-right">{% trans "Powered by" %} <a>Django Classified Ads</a></span>
       {% endif %}
     </footer>
 
