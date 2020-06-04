@@ -28,11 +28,14 @@ class Profile(models.Model):
 
 class Area(models.Model):
     slug = models.SlugField()
-    title = models.CharField(_('title'), max_length=100)
+    state = models.CharField(_('state'), max_length=100, default='State')
+    county = models.CharField(_('county'), max_length=100, default='County')
+    city = models.CharField(_('city'), max_length=100, default='City')
+
     
     
     def __str__(self):
-        return self.title
+        return self.state
 
     class Meta:
         verbose_name = _('area')
@@ -110,7 +113,9 @@ class Item(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     group = models.ForeignKey(Group, verbose_name=_('group'), on_delete=models.CASCADE)
     area = models.ForeignKey(Area, verbose_name=_('area'), on_delete=models.CASCADE, null=True, blank=True)
-
+    state = models.CharField(_('state'), max_length=100)
+    county = models.CharField(_('county'), max_length=100)
+    city = models.CharField(_('city'), max_length=100)
     title = models.CharField(_('title'), max_length=100)
     description = models.TextField(_('description'))
     price = models.DecimalField(_('price'), max_digits=10, decimal_places=2)
@@ -172,3 +177,4 @@ class Item(models.Model):
 class Image(models.Model):
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     file = ImageField(_('image'), upload_to='images')
+
