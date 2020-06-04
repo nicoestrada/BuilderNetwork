@@ -5,7 +5,7 @@ from .models import Item, Group, Profile, Area
 
 
 class SearchForm(forms.Form):
-    area = forms.ModelChoiceField(label=_('Area'), queryset=Area.objects.all(), required=False)
+    area = forms.CharField(label=_('State, County, or City'), required=True)
     group = forms.ModelChoiceField(label=_('Group'), queryset=Group.objects.all(), required=False)
     q = forms.CharField(required=False, label=_('Query'),)
 
@@ -30,7 +30,9 @@ class ItemForm(forms.ModelForm):
         fields = (
             'area',
             'group',
-            'title',
+            'state',
+            'county',
+            'city',
             'description',
             'price',
             'is_active'
