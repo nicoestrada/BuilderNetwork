@@ -38,6 +38,7 @@ class Area(models.Model):
         return self.state
 
     class Meta:
+        ordering = ('state',)
         verbose_name = _('area')
         verbose_name_plural = _('areas')
 
