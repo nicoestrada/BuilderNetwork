@@ -86,18 +86,19 @@
       </h4>
     </div>
 
-    {% if messages %}
-      {% for message in messages %}
-        <div class='row'>
-          <div class="col-md-12">
-            <div {% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>
-              <button type="button" class="close" data-dismiss="alert">×</button>
-              {{ message|safe }}
-            </div>
-          </div>
-        </div>
-      {% endfor %}
-    {% endif %}
+    <!-- {% if area_list %}
+          &nbsp;
+          <small>
+            <select id="area-selector">
+              <option value="">{% trans 'All areas' %}</option>
+              {% for area_item in area_list %}
+                <option value="{{ area_item.state }}" {% if area.pk == area_item.pk %}selected{% endif %}>
+                  {{ area_item }}
+                </option>
+              {% endfor %}
+            </select>
+          </small>
+        {% endif %} -->
 
     {% block body %}
 
