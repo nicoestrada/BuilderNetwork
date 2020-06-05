@@ -172,8 +172,8 @@ DCF_SITE_NAME = 'Nationwide Listings'
 # You need to obtain Facebook Keys
 # Check docs for more info here:
 # https://python-social-auth.readthedocs.io/en/latest/backends/facebook.html
-SOCIAL_AUTH_FACEBOOK_KEY = os.environ.get('SOCIAL_AUTH_FACEBOOK_KEY')
-SOCIAL_AUTH_FACEBOOK_SECRET = os.environ.get('SOCIAL_AUTH_FACEBOOK_SECRET')
+SOCIAL_AUTH_FACEBOOK_KEY = ('596724317896097')
+SOCIAL_AUTH_FACEBOOK_SECRET = ('05f3fced5a0f8ccd0153bd49e837cb52')
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
     'fields': 'id, name, email'
