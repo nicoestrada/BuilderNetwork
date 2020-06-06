@@ -40,6 +40,9 @@ class ItemForm(forms.ModelForm):
         )
 
         
+class EmailWidget(forms.TextInput):
+    input_type = 'email'
+
 class PhoneWidget(forms.TextInput):
     input_type = 'phone'
 
@@ -47,9 +50,11 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = (
+            'email',
             'phone',
         )
         widgets = {
+            'email': EmailWidget,
             'phone': PhoneWidget
         }
 
