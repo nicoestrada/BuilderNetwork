@@ -11,10 +11,12 @@ from django.views.generic import DetailView, CreateView, UpdateView, ListView, D
 from django.views.generic.base import View
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import FormMixin
-
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login, authenticate
 from . import settings as dcf_settings
-from .forms import ItemForm, ProfileForm, SearchForm
+from .forms import ItemForm, ProfileForm, SearchForm, CreateForm, SignUpForm
 from .models import Item, Image, Group, Section, Profile, Area
+
 
 
 class FilteredListView(FormMixin, ListView):
@@ -286,3 +288,19 @@ def area_upload(request):
         )
     context = {}
     return render(request, template, context)
+
+def signup(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            user.refresh_from_db()  # load the profile instance created by the signal
+            user.profile.birth_date = form.cleaned_data.get('birth_date')
+            user.save()
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=user.username, password=raw_password)
+            login(request, user)
+            return redirect('home')
+    else:
+        form = SignUpForm()
+    return render(request, 'signup.html', {'form': form})
