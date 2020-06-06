@@ -25,6 +25,20 @@ class SearchForm(forms.Form):
         filters['description__icontains'] = self.cleaned_data['q']
 
         return filters
+    
+class CreateForm(forms.ModelForm):
+    statelist = forms.ModelChoiceField(label=_('Choose State'), queryset=Area.objects.values_list('state', flat=True).distinct(), required=True)
+    county = forms.CharField(required=True, label=_('Enter County'))
+    city = forms.CharField(required=True, label=_('Enter City'))
+
+    class Meta:
+        model = Item
+        fields = (
+            'group',
+            'description',
+            'price',
+            'is_active'
+        )
 
 
 class ItemForm(forms.ModelForm):
