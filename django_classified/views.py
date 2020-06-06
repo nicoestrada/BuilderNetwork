@@ -14,7 +14,7 @@ from django.views.generic.edit import FormMixin
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, authenticate
 from . import settings as dcf_settings
-from .forms import ItemForm, ProfileForm, SearchForm, CreateForm, SignUpForm
+from .forms import ItemForm, ProfileForm, SearchForm, SignUpForm
 from .models import Item, Image, Group, Section, Profile, Area
 
 
