@@ -15,6 +15,7 @@ from . import settings as dcf_settings
 
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    email = models.CharField(_('Contact email'), max_length=50, null=True, blank=True)
     phone = models.CharField(_('Contact phone'), max_length=50, null=True, blank=True)
     receive_news = models.BooleanField(_('receive news'), default=True, db_index=True)
 
