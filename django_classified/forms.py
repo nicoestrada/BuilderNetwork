@@ -6,10 +6,12 @@ from .models import Item, Group, Profile, Area
 
 
 class SearchForm(forms.Form):
-    area = forms.ModelChoiceField(label=_('Choose State'), queryset=Area.objects.values_list('state', flat=True).distinct(), required=True)
     group = forms.ModelChoiceField(label=_('Group'), queryset=Group.objects.all(), required=False)
-    q = forms.CharField(required=False, label=_('Query'),)
-
+    area = forms.ModelChoiceField(label=_('Choose State'), queryset=Area.objects.values_list('state', flat=True).distinct(), required=True)
+    county = forms.CharField(required=True, label=_('County'))
+    city = forms.CharField(required=True, label=_('City'))
+    q = forms.CharField(required=False, label=_('Description'))
+    
     def filter_by(self):
         # TODO search using more than one field
         # TODO split query string and make seaprate search by words
