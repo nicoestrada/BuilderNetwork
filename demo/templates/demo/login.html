@@ -15,7 +15,23 @@
           </div>
           <div class="modal-body">
             <ul>
-              <li><a href="{% url "social:begin" "facebook" %}">Facebook</a></li>
+              <form method="post">
+                {% csrf_token %}
+                {% for field in form %}
+                  <p>
+                    {{ field.label_tag }}<br>
+                    {{ field }}
+                    {% if field.help_text %}
+                      <small style="color: grey">{{ field.help_text }}</small>
+                    {% endif %}
+                    {% for error in field.errors %}
+                      <p style="color: red">{{ error }}</p>
+                    {% endfor %}
+                  </p>
+                {% endfor %}
+                <button type="submit">Login/Sign up</button>
+              </form>
+              <li><a href="{% url "social:begin" "facebook" %}">Login with Facebook</a></li>
             </ul>
           </div>
         </div>
