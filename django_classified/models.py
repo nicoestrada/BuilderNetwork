@@ -28,12 +28,6 @@ class Profile(models.Model):
         else:
             return Profile.objects.create(user=user)
 
-    @receiver(post_save, sender=User)
-    def update_user_profile(self, sender, instance, created, **kwargs):
-        if created:
-            Profile.objects.create(user=instance)
-        instance.profile.save()
-
 
 class Area(models.Model):
     slug = models.SlugField()
