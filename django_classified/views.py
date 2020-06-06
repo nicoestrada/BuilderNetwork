@@ -14,7 +14,7 @@ from django.views.generic.edit import FormMixin
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, authenticate
 from . import settings as dcf_settings
-from .forms import ItemForm, ProfileForm, SearchForm, SignUpForm
+from .forms import ItemForm, ProfileForm, SearchForm, SignUpForm, CreateForm
 from .models import Item, Image, Group, Section, Profile, Area
 
 
@@ -173,9 +173,9 @@ class ItemUpdateView(FormsetMixin, UpdateView):
 class ItemCreateView(FormsetMixin, CreateView):
     is_update_view = False
     model = Item
-    form_class = ItemForm
+    form_class = CreateForm
     formset_class = inlineformset_factory(Item, Image, extra=3, fields=('file', ))
-
+    
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         profile = Profile.get_or_create_for_user(self.request.user)
@@ -195,7 +195,6 @@ class ItemCreateView(FormsetMixin, CreateView):
         initial = super(ItemCreateView, self).get_initial()
         initial['area'] = Area.get_for_request(self.request)
         return initial
-
 
 class MyItemsView(ListView):
     template_name = 'django_classified/user_item_list.html'
