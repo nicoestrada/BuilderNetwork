@@ -167,7 +167,7 @@ LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/login/'
 LOGOUT_REDIRECT_URL = '/'
 
-DCF_SITE_NAME = 'Nationwide Listings'
+DCF_SITE_NAME = 'BuilderNetwork.org'
 
 # You need to obtain Facebook Keys
 # Check docs for more info here:
