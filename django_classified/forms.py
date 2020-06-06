@@ -8,8 +8,8 @@ from .models import Item, Group, Profile, Area
 class SearchForm(forms.Form):
     group = forms.ModelChoiceField(label=_('Group'), queryset=Group.objects.all(), required=False)
     area = forms.ModelChoiceField(label=_('Choose State'), queryset=Area.objects.values_list('state', flat=True).distinct(), required=True)
-    county = forms.CharField(required=True, label=_('County'))
-    city = forms.CharField(required=True, label=_('City'))
+    county = forms.CharField(required=True, label=_('Enter County'))
+    city = forms.CharField(required=True, label=_('Enter City'))
     q = forms.CharField(required=False, label=_('Description'))
     
     def filter_by(self):
