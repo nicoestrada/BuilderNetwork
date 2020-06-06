@@ -1,6 +1,7 @@
 from django import forms
 from django.utils.translation import ugettext as _
-
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 from .models import Item, Group, Profile, Area
 
 
@@ -38,12 +39,21 @@ class ItemForm(forms.ModelForm):
             'is_active'
         )
 
-
+        
 class PhoneWidget(forms.TextInput):
     input_type = 'phone'
 
-
 class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = (
+            'phone',
+        )
+        widgets = {
+            'phone': PhoneWidget
+        }
+
+class SignUpForm(UserCreationForm):
     class Meta:
         model = Profile
         fields = (
