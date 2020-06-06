@@ -40,7 +40,7 @@ class AreaAdmin(admin.ModelAdmin):
 
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ('user', 'email', 'phone')
-    search_fields = ('user__username', 'phone')
+    search_fields = ('user__username', 'email', 'phone')
 
 
 admin.site.register(Area, AreaAdmin)
