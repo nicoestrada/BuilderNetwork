@@ -2,7 +2,7 @@ from django import forms
 from django.utils.translation import ugettext as _
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Item, Group, Profile, Area
+from .models import Item, Group, Profile, Area, Section
 
 
 class SearchForm(forms.Form):
@@ -27,18 +27,37 @@ class SearchForm(forms.Form):
         return filters
     
 class CreateForm(forms.ModelForm):
-    statelist = forms.ModelChoiceField(label=_('Choose State'), queryset=Area.objects.values_list('state', flat=True).distinct(), required=True)
-    county = forms.CharField(required=True, label=_('Enter County'))
-    city = forms.CharField(required=True, label=_('Enter City'))
+    typeOfListing = forms.ModelChoiceField(label=_('1. Type of Listing'), queryset=Section.objects.values_list('title', flat=True))
+    statelist = forms.ModelChoiceField(label=_('2. Choose State'), queryset=Area.objects.values_list('state', flat=True).distinct(), required=True)
+    county = forms.CharField(required=True, label=_('2a. Enter County'))
+    city = forms.CharField(required=True, label=_('2b. Enter City'))
+    contractorsList = forms.ModelChoiceField(label=_('3. Contractor by Trade'), queryset=Group.objects.filter(section_id=1).values_list('title', flat=True))
+    workersList = forms.ModelChoiceField(label=_('3a. Worker by Trade'), queryset=Group.objects.filter(section_id=2).values_list('title', flat=True))
+    architectList = forms.ModelChoiceField(label=_('3b. Type of Architect'), queryset=Group.objects.filter(section_id=3).values_list('title', flat=True))
+    engineerList = forms.ModelChoiceField(label=_('3c. Type of Engineer'), queryset=Group.objects.filter(section_id=4).values_list('title', flat=True))
 
     class Meta:
         model = Item
         fields = (
-            'group',
+            'title',
             'description',
             'price',
             'is_active'
         )
+
+    def filter_by(self):
+        # TODO search using more than one field
+        # TODO split query string and make seaprate search by words
+        filters = {}
+        if self.cleaned_data['group']:
+            filters['group'] = self.cleaned_data['group']
+
+        if self.cleaned_data['area']:
+            filters['area'] = self.cleaned_data['area']
+
+        filters['description__icontains'] = self.cleaned_data['q']
+
+        return filters
 
 
 class ItemForm(forms.ModelForm):
